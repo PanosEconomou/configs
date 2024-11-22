@@ -22,4 +22,8 @@ hyprctl hyprpaper preload "$IMAGE_PATH"
 # Set the image as the wallpaper (optional if the config file is used directly)
 hyprctl hyprpaper wallpaper ",$IMAGE_PATH"
 
+# Restart hyprpaper
+pkill hyprpaper
+hyprpaper & disown
+
 echo "Wallpaper set to $1 and configuration updated in hyprpaper.conf"
