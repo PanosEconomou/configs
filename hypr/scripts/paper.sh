@@ -28,6 +28,6 @@ pkill hyprpaper
 hyprpaper & disown
 
 # Set up Hyprlock to have the same background
-sed -i "/path/s/.*/\t$(printf '%s' "path=$IMAGE_PATH" | sed 's/[&/\]/\\&/g')/"  $LOCK_FILE
+sed -i "0,/path/s/.*path.*/\t$(printf '%s' "path=$IMAGE_PATH" | sed 's/[&/\]/\\&/g')/"  $LOCK_FILE
 
 echo "Wallpaper set to $1 and configuration updated in hyprpaper.conf and hyprlock.conf"
