@@ -29,8 +29,8 @@
         "pulseaudio",
         "bluetooth",
         "battery", 
-        "network",
- 		"custom/empty"
+        "network"
+ 		// "custom/empty"
     ],
 
     // Modules Center
