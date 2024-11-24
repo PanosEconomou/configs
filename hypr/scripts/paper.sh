@@ -16,6 +16,7 @@ LOCK_FILE="$HOME/.config/hypr/hyprlock.conf"
 # Clear the config file and write new configuration
 echo "preload = $IMAGE_PATH" > $CONFIG_FILE
 echo "wallpaper = ,$IMAGE_PATH" >> $CONFIG_FILE
+echo "splash = false" >> $CONFIG_FILE
 
 # Preload the image (optional if the config file is used directly)
 hyprctl hyprpaper preload "$IMAGE_PATH"
