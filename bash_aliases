@@ -21,3 +21,8 @@ function open() {
 	xdg-open "$@" &
 	disown
 }
+
+function kbdlight() {
+	local btn=${1:-$(if [[ $(brightnessctl -d kbd_backlight get) -eq 0 ]]; then echo 50; else echo 0; fi)}	
+	brightnessctl -d kbd_backlight set "$btn"%
+}
