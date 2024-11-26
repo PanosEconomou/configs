@@ -1,42 +1,170 @@
-# Get editor completions based on the config schema
-"$schema" = 'https://starship.rs/config-schema.json'
+[aws]
+symbol = "  "
 
-# Inserts a blank line between shell prompts
-add_newline = true
+[buf]
+symbol = " "
 
-# Changes how long it takes for the command to time out
-command_timeout = 700
+[c]
+symbol = " "
 
-# Use Nerd Fonts symbols for Git status
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " 󰌾"
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
 [git_branch]
-symbol = " "  # Nerd Font GitHub logo
-style = "bold green"
-format = "[$symbol$branch]($style) "
+symbol = " "
 
 [git_commit]
-commit_hash_length = 7
-tag_symbol = " "  # Nerd Font Git commit logo
-style = "bold yellow"
-format = "[$symbol$commit]($style) "
+tag_symbol = '  '
 
-[git_state]
-format = '[\($state\)]($style) '
-style = "bold red"
-rebase = " REBASING"
-merge = " MERGING"
-cherry_pick = " CHERRY-PICKING"
-bisect = " BISECTING"
-revert = " REVERTING"
+[golang]
+symbol = " "
 
-[git_status]
-# format = '([\[$all_status$ahead_behind\]]($style)) '
-format = '([\[$all_status$ahead_behind\]]($style) )'
-style = "bold green"
-staged = ''       # Nerd Font symbol for staged files
-modified = ''     # Nerd Font symbol for modified files
-deleted = ''      # Nerd Font symbol for deleted files
-renamed = ''      # Nerd Font symbol for renamed files
-untracked = ''    # Nerd Font symbol for untracked files
-conflicted = ''   # Nerd Font symbol for conflicted files
-ahead = '↑'
-behind = '↓'
+[guix_shell]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[hostname]
+ssh_symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[python]
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+
+[scala]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[zig]
+symbol = " "
+
+[gradle]
+symbol = " "
