@@ -1,3 +1,37 @@
+# Use Nerd Fonts symbols for Git status
+[git_branch]
+symbol = " "  # Nerd Font GitHub logo
+style = "bold green"
+format = "[$symbol$branch]($style) "
+
+[git_commit]
+commit_hash_length = 7
+tag_symbol = " "  # Nerd Font Git commit logo
+style = "bold yellow"
+format = "[$symbol$commit]($style) "
+
+[git_state]
+format = '[\($state\)]($style) '
+style = "bold red"
+rebase = " REBASING"
+merge = " MERGING"
+cherry_pick = " CHERRY-PICKING"
+bisect = " BISECTING"
+revert = " REVERTING"
+
+[git_status]
+# format = '([\[$all_status$ahead_behind\]]($style)) '
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold green"
+staged = ''       # Nerd Font symbol for staged files
+modified = ''     # Nerd Font symbol for modified files
+deleted = ''      # Nerd Font symbol for deleted files
+renamed = ''      # Nerd Font symbol for renamed files
+untracked = ''    # Nerd Font symbol for untracked files
+conflicted = ''   # Nerd Font symbol for conflicted files
+ahead = '↑'
+behind = '↓'
+
 [aws]
 symbol = "  "
 
@@ -33,12 +67,6 @@ symbol = " "
 
 [fossil_branch]
 symbol = " "
-
-[git_branch]
-symbol = " "
-
-[git_commit]
-tag_symbol = '  '
 
 [golang]
 symbol = " "
