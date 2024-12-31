@@ -12,6 +12,7 @@ IMAGE_PATH="$(realpath $1)"
 # Config file path
 CONFIG_FILE="$HOME/.config/hypr/hyprpaper.conf"
 LOCK_FILE="$HOME/.config/hypr/hyprlock.conf"
+SDDM_THEME="/usr/share/sddm/themes/sddm-astronaut-theme/Backgrounds"
 
 # Clear the config file and write new configuration
 echo "preload = $IMAGE_PATH" > $CONFIG_FILE
@@ -30,5 +31,8 @@ hyprpaper & disown
 
 # Set up Hyprlock to have the same background
 sed -i "0,/path/s/.*path.*/\t$(printf '%s' "path=$IMAGE_PATH" | sed 's/[&/\]/\\&/g')/"  $LOCK_FILE
+
+# Set up SDDM to have the same background
+sudo cp $IMAGE_PATH "$SDDM_THEME/1.png"
 
 echo "Wallpaper set to $1 and configuration updated in hyprpaper.conf and hyprlock.conf"
