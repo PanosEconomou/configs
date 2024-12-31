@@ -35,4 +35,4 @@ sed -i "0,/path/s/.*path.*/\t$(printf '%s' "path=$IMAGE_PATH" | sed 's/[&/\]/\\&
 # Set up SDDM to have the same background
 sudo cp $IMAGE_PATH "$SDDM_THEME/1.png"
 
-echo "Wallpaper set to $1 and configuration updated in hyprpaper.conf and hyprlock.conf"
+echo "Wallpaper set to $1 and configuration updated in hyprpaper.conf, sddm, and hyprlock.conf"
