@@ -2649,6 +2649,6 @@ background_opacity .85
 
 
 # BEGIN_KITTY_THEME
-# Xcodedark
+# Snazzy
 include current-theme.conf
 # END_KITTY_THEME
