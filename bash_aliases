@@ -12,7 +12,7 @@ function t() {
 }
 
 function o() {
-	xdg-open "$file" &
+	xdg-open "$@" &
 	disown
 }
 
