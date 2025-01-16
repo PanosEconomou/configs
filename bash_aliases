@@ -12,10 +12,8 @@ function t() {
 }
 
 function o() {
-	for file in "$@"; do
-		xdg-open "$file" &
-		disown
-	done
+	xdg-open "$file" &
+	disown
 }
 
 function open() {
