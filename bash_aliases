@@ -16,8 +16,18 @@ function o() {
 	disown
 }
 
-
 function open() {
 	xdg-open "$@" &
 	disown
+}
+
+low() {
+  for file in "$@"; do
+    # Skip if it's a directory
+    [ -f "$file" ] || continue
+    # Generate the new filename
+    new_name=$(echo "$file" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+    # Rename the file
+    mv "$file" "$new_name"
+  done
 }
