@@ -222,4 +222,8 @@ nnoremap <F4> :if &guioptions=~#'mTr'<Bar>
 	\endif<CR>
 
 
-
+" Cursor
+if &term =~ 'kitty'
+    let &t_SI = "\e[5 q"  " Set to bar cursor in insert mode
+    let &t_EI = "\e[2 q"  " Reset to block cursor in normal mode
+endif
