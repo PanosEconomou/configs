@@ -13,7 +13,7 @@ frame_color = "#89DDFF"
 
 [urgency_normal]
 timeout = 10
-background = "#1E1E2E"
+background = "#1E1E2EBB"
 foreground = "#A9B1D6"
 frame_color = "#7AA2F7"
 
