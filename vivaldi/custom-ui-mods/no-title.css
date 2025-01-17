@@ -15,13 +15,6 @@
     backdrop-filter: blur(5px);
 }
 
-/* Sets the background color to any non-selected
- * element of the quick command menu to transparent */
-#modal-bg *:not([data-selected])
-{
-    background-color: rgba(0,0,0,0)!important;
-}
-
 /* tab cycler, optional, as it can affect legibility */
 #cycler
 {
@@ -30,3 +23,10 @@
 	box-shadow:
 }
 
+/* .startpage {
+  	background-color: rgba(40,42,54,0.5) !important;
+} 
+
+#browser {
+	background-color: rgba(40,42,54,0.5) !important;
+} */ 
