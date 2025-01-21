@@ -1,7 +1,8 @@
 # A collection of aliases
 alias notes="cd ~/notes"
 alias shelf="cd ~/shelf"
-alias tnotes"cd ~/projects/thermo-notes"
+alias confs="cd ~/.config"
+alias tnotes="cd /home/pano/projects/thermo-notes"
 alias battery="upower -i $(upower -e | grep -i BAT) | grep --color=never -E 'state|to full|to empty|percentage'"
 alias bat="battery"
 alias printers="xdg-open http://localhost:631/"
