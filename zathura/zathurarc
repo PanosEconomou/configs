@@ -1,0 +1,5 @@
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
+
+map [index] <Right> navigate_index expand
+map [index] <Left> navigate_index collapse
