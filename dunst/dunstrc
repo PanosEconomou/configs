@@ -7,7 +7,7 @@ transparency = 1
 
 [urgency_low]
 timeout = 5
-background = "#1E1E2EBB"
+background = "#1E1E2E"
 foreground = "#C0CAF5"
 frame_color = "#89DDFF"
 
@@ -19,7 +19,7 @@ frame_color = "#7AA2F7"
 
 [urgency_critical]
 timeout = 0
-background = "#F7768EBB"
+background = "#F7768E"
 foreground = "#1E1E2E"
 frame_color = "#DB4B4B"
 
