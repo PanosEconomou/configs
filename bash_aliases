@@ -6,6 +6,7 @@ alias tnotes="cd /home/pano/projects/thermo-notes"
 alias battery="upower -i $(upower -e | grep -i BAT) | grep --color=never -E 'state|to full|to empty|percentage'"
 alias bat="battery"
 alias printers="xdg-open http://localhost:631/"
+alias la="ls -la"
 # A collection of functions that act as aliases
 function t() {
 	typora --enable-features=UseOzonePlatform --ozone-platform=wayland "$@" &
