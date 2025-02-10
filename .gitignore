@@ -1,0 +1,36 @@
+# Ignore
+Slack/
+Typora/*
+baloofileinformationrc
+dconf/
+espanso/*
+espanso/match/*
+evolution/
+go/
+google-chrome/
+htop/
+kde.org/
+mimeapps.list
+pulse/
+systemd/
+user-dirs.dirs
+user-dirs.locale
+gpt-cli/
+hypr/hyprpaper.conf
+.gsd-keyboard.settings-ported
+baloofilerc
+gtk-3.0/
+QtProject.conf
+yelp/
+nchat/*
+slack-term/
+aerc/
+zoom*
+Unknown*
+neofetch/
+
+# Except
+!Typora/conf/*
+!nchat/color.conf
+!nchat/usercolor.conf
+!espanso/match/base.yml
