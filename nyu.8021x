@@ -1,3 +1,4 @@
+# Remove this line and place this file in /var/lib/iwd/
 [Security]
 EAP-Method=PEAP
 EAP-Identity=anonymous
