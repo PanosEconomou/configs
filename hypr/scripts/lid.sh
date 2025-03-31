@@ -8,6 +8,6 @@ MONITOR="eDP-1"
 if [ "$LID_STATE" == "closed" ]; then
     hyprctl keyword monitor "$MONITOR, disable"
 else
-    hyprctl keyword monitor "$MONITOR, highres, 1920x0, 1"
+    hyprctl keyword monitor "$MONITOR, highres, 0x1080, 1"
 fi
 
