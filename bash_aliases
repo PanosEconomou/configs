@@ -2,6 +2,7 @@
 alias notes="cd ~/notes"
 alias shelf="cd ~/shelf"
 alias confs="cd ~/.config"
+alias proj="cd ~/projects"
 alias tnotes="cd /home/pano/projects/thermo-notes"
 alias battery="upower -i $(upower -e | grep -i BAT) | grep --color=never -E 'state|to full|to empty|percentage'"
 alias bat="battery"
