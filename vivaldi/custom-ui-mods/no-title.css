@@ -1,33 +1,9 @@
-#header, #titlebar { display: none !important; }
-
-
-/* Omnibox drop-down translucency */
-.OmniDropdown
-{
-    background: var(--colorBgAlpha);
-    backdrop-filter: blur(5px);
+#header, #titlebar { 
+	display: none !important;
+	/*visibility: hidden !important;
+	height: 0 !important;
+	pointer-events: none !important;*/
 }
 
-/* Quick command menu translucency */
-#modal-bg
-{
-    background-color: var(--colorBgAlpha);
-    backdrop-filter: blur(5px);
-}
 
-/* tab cycler, optional, as it can affect legibility */
-#cycler
-{
-	background-color: var(--colorBgAlpha);
-	backdrop-filter: blur(5px);
-	box-shadow:
-}
-
-/* .startpage {
-  	background-color: rgba(40,42,54,0.5) !important;
-} 
-
-#browser {
-	background-color: rgba(40,42,54,0.5) !important;
-} */ 
 
