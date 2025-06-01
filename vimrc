@@ -71,9 +71,10 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " In insert mode: if the completion menu is visible, <Tab> → <C-y>, else do normal <Tab>
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-y>" :
-      \ "\<Tab>"
+inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
+
+set shortmess+=c
+inoremap <silent><expr> <Esc> coc#pum#visible()   ? coc#pum#cancel() : coc#snippet#jumpable() ? coc#snippet#cancel() : "\<Esc>"
 
 " }}}
 
