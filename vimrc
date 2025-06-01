@@ -66,8 +66,14 @@ call plug#begin('~/.vim/plugged')
 	Plug 'dense-analysis/ale'
 	Plug 'preservim/nerdtree'
 	Plug 'rakr/vim-one'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
+
+" In insert mode: if the completion menu is visible, <Tab> → <C-y>, else do normal <Tab>
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-y>" :
+      \ "\<Tab>"
 
 " }}}
 
