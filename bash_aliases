@@ -38,3 +38,8 @@ low() {
     mv "$file" "$new_name"
   done
 }
+
+function manimation() {
+	cd ~/projects/manimation;
+	source ./bin/activate
+}
