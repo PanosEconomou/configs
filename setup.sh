@@ -304,6 +304,7 @@ InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
 sudo ln -s "$REPO/sddm_theme.conf" "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
 completed "Successfully cloned the astronaut repo and copied fonts and config"
 
-
+confirm "Enable sddm?"
 sudo systemctl enable sddm
+completed "Successfully enabled sddm"
 
