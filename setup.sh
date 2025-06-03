@@ -305,6 +305,6 @@ sudo ln -s "$REPO/sddm_theme.conf" "/usr/share/sddm/themes/sddm-astronaut-theme/
 completed "Successfully cloned the astronaut repo and copied fonts and config"
 
 confirm "Enable sddm?"
-sudo systemctl enable sddm
+sudo systemctl enable sddm --now
 completed "Successfully enabled sddm"
 
