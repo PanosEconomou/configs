@@ -3,8 +3,9 @@
 # Let's define a prompt function
 yn () {
 	local prompt=${1:-"Continue?"}
+	local default=${2:-"Y"}
 	while true; do
-		read -p "Continue? (y/n): " yn
+		read -p "$prompt [y/n:$default]: " yn
 		case $yn in
 			[Yy]* ) echo "Proceeding..."; break;;
 			[Nn]* ) echo "Aborting."; exit;;
