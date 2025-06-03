@@ -272,4 +272,38 @@ find_unavailable "${package[@]}"
 
 confirm "Install the basic packages?"
 install "${packages[@]}"
+completed "Basic packages installed"
+
+# Set up SDDM
+info "Let's set up the display manager (sddm)"
+info "Installing astronaut theme dependencies"
+case "$distro_id" in
+	arch|manjaro)
+		sudo pacman -S qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg 
+		;;
+	fedora|rhel|fedora-asahi-remix)
+		if [ -z "${FORCE-}" ]; then 
+			sudo dnf install qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia 
+		else 
+			sudo dnf install -y qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia 
+		fi
+		;;
+	*)
+		error "Unsupported distribution: $distro_id"
+		exit 1
+		;;
+esac
+completed "Installed Astronaut Dependencies"
+
+sudo git clone -b master --depth 1 https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
+sudo cp -r /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
+echo "[Theme]
+Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
+echo "[General]
+InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
+sudo ln -s "$REPO/sddm_theme.conf" "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
+completed "Successfully cloned the astronaut repo and copied fonts and config"
+
+
+systemctl enable sddm
 
