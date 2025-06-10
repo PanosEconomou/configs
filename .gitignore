@@ -33,6 +33,8 @@ Kitware/
 Wolfram/
 btop/
 environment.d/
+nwg-panel/
+Code/
 
 # Except
 !Typora/conf/*
