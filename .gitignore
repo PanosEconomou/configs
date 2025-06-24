@@ -35,6 +35,8 @@ btop/
 environment.d/
 nwg-panel/
 Code/
+mesa/
+protonfixes/
 
 # Except
 !Typora/conf/*
