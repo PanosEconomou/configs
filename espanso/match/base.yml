@@ -46,3 +46,4 @@ matches:
         type: shell
         params:
           cmd: "curl 'https://api.ipify.org'"
+
