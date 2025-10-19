@@ -5,6 +5,7 @@ alias confs="cd ~/.config"
 alias proj="cd ~/projects"
 alias tri="cd /home/pano/projects/tricritical-ising"
 alias tnotes="cd /home/pano/projects/thermo-notes"
+alias tasks="xdg-open 'https://github.com/users/PanosEconomou/projects/3'"
 
 alias rebash="source ~/.bashrc"
 alias battery="upower -i $(upower -e | grep -i BAT) | grep --color=never -E 'state|to full|to empty|percentage'"
