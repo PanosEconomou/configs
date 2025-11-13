@@ -14,6 +14,8 @@ alias bat="battery"
 alias printers="xdg-open http://localhost:631/"
 alias la="ls -la"
 alias code="/usr/bin/code --enable-proposed-api ms-toolsai.jupyter"
+alias eba="source env/bin/activate"
+
 # A collection of functions that act as aliases
 function t() {
 	typora --enable-features=UseOzonePlatform --ozone-platform=wayland "$@" &
