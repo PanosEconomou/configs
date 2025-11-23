@@ -1,0 +1,39 @@
+/* Hide tab bar */
+
+#TabsToolbar {
+	visibility: collapse !important;
+}
+
+/* Address bar Customization */
+
+#urlbar,
+#nav-bar {
+	transform: translateY(-200%);
+	transition: transform 0.2s ease;
+	position:relative;
+	z-index:100;
+}
+
+#urlbar:hover,
+#urlbar:focus-within,
+#nav-bar:hover,
+#nav-bar:focus-within {
+	transform: translateY(0%);
+}
+
+#navigator-toolbox {
+	transition: height 0.2s ease;
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index:100;
+	height: 0;
+}
+
+#navigator-toolbox:hover,
+#navigator-toolbox:focus-within {
+	height: auto;
+}
+
+
