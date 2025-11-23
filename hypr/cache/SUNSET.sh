@@ -1,2 +1,2 @@
 #!bin/bash
-export SUNSET='false'
+export SUNSET='true'
