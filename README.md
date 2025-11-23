@@ -39,9 +39,10 @@ Here are a couple of things that I needed to figure out about arch multiple time
 Often electron apps like Vivaldi, Typora, and so on, would randomly crash for no reason citing a vague gpu misconfig. I think this is because the combo electron+Hyprland is sad, and Hyprland doesn't let electron know which drivers to use sometimes for some reason. Setting this global configuration in ``/etc/environment`` actually helped
 ```
 # Enable Wayland for Chromium/Electron
-export NATIVE_WAYLAND=1
-export OZONE_PLATFORM=wayland
-export ELECTRON_OZONE_PLATFORM_HINT=wayland
-export QT_QPA_PLATFORM=wayland
-export SDL_VIDEODRIVER=wayland
+NATIVE_WAYLAND=1
+OZONE_PLATFORM=wayland
+ELECTRON_OZONE_PLATFORM_HINT=wayland
+QT_QPA_PLATFORM=wayland
+SDL_VIDEODRIVER=wayland
+LIBVA_DRIVER_NAME=i965
 ```
