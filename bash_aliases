@@ -43,7 +43,12 @@ low() {
   done
 }
 
-function manimation() {
-	cd ~/projects/manimation;
-	source ./bin/activate
+gcm() {
+	git commit -m "$*"
+}
+
+gcma() {
+	git add --all
+	git commit -m "$*"
+	git push origin main
 }
