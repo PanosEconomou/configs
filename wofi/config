@@ -1,9 +1,10 @@
 width=20%
+normal_window=true
 #lines=11
 hide_scroll = true
 allow_images = true
 image_size = 15
-prompt=Search...
+prompt=What's up today?
 matching=fuzzy
 insensitive=true
 columns=1
