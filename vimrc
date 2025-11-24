@@ -73,8 +73,13 @@ call plug#end()
 
 " Set up vimtex plugin
 let g:text_flavor = 'latex'
-let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'zathura_simple'
+let g:vimtex_view_zathura_use_xdotool = 0
 let g:vimtex_quickfix_mode = 0
+let maplocalleader = ";"
+
+" This will cleanup all the files used to live compile latex
+noremap <localleader>lc :VimtexStop<cr> <plug>(vimtex-clean-full)<cr>
 
 " In insert mode: if the completion menu is visible, <Tab> → <C-y>, else do normal <Tab>
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"

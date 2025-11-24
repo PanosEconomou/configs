@@ -9,3 +9,7 @@ set selection-clipboard clipboard
 set statusbar-home-tilde true
 set statusbar-basename true 
 set guioptions none 
+
+set highlight-active-color "rgba(168, 234, 237,0.5)"
+set highlight-color "rgba(168, 234, 237,0.5)"
+
