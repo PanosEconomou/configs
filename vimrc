@@ -67,8 +67,14 @@ call plug#begin('~/.vim/plugged')
 	Plug 'preservim/nerdtree'
 	Plug 'rakr/vim-one'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'lervag/vimtex'
 
 call plug#end()
+
+" Set up vimtex plugin
+let g:text_flavor = 'latex'
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_mode = 0
 
 " In insert mode: if the completion menu is visible, <Tab> → <C-y>, else do normal <Tab>
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
@@ -199,7 +205,7 @@ highlight LineNr ctermbg=NONE guibg=NONE
 
 " Display more of the file by default.
 " Hide the toolbar.
-set guioptions-=T
+" set guioptions-=T
 
 " Hide the the left-side scroll bar.
 set guioptions-=L
