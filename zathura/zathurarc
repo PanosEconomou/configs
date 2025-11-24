@@ -5,3 +5,7 @@ map [index] <Right> navigate_index expand
 map [index] <Left> navigate_index collapse
 
 set selection-clipboard clipboard
+
+set statusbar-home-tilde true
+set statusbar-basename true 
+set guioptions none 
