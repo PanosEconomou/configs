@@ -17,7 +17,6 @@ hyprsunset
 iwd
 kitty
 less
-nchat
 nnn
 npm
 openssh
