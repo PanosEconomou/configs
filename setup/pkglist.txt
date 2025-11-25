@@ -27,7 +27,7 @@ swayimg
 typora
 upower
 vim
-vivaldi
+firefox
 waybar
 wofi
 xdg-desktop-portal-hyprland
