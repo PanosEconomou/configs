@@ -85,7 +85,7 @@ noremap <localleader>lc :VimtexStop<cr> <plug>(vimtex-clean-full)<cr>
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
 
 set shortmess+=c
-inoremap <silent><expr> <Esc> coc#pum#visible()   ? coc#pum#cancel() : coc#snippet#jumpable() ? coc#snippet#cancel() : "\<Esc>"
+" inoremap <silent><expr> <Esc> coc#pum#visible()   ? coc#pum#cancel() : coc#snippet#jumpable() ? coc#snippet#cancel() : "\<Esc>"
 
 " }}}
 
@@ -106,7 +106,7 @@ nnoremap <leader>\ :nohlsearch<CR>
 nnoremap <silent> <leader>p :%w !lp<CR>
 
 " Type jj to exit insert mode quickly.
-inoremap jj <Esc>
+" inoremap jj <Esc>
 
 " Press the space bar to type the : character in command mode.
 nnoremap <space> :
