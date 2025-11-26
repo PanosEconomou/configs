@@ -68,6 +68,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'rakr/vim-one'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	Plug 'lervag/vimtex'
+	Plug 'sirVer/ultisnips'
 
 call plug#end()
 
@@ -83,6 +84,11 @@ noremap <localleader>lc :VimtexStop<cr> <plug>(vimtex-clean-full)<cr>
 
 " In insert mode: if the completion menu is visible, <Tab> → <C-y>, else do normal <Tab>
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
+
+" Setup Ultisnips
+let g:UltiSnipsExpandTrigger       = '<Tab>'    " use Tab to expand snippets
+let g:UltiSnipsJumpForwardTrigger  = '<Tab>'    " use Tab to move forward through tabstops
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'  " use Shift-Tab to move backward through tabstops
 
 set shortmess+=c
 " inoremap <silent><expr> <Esc> coc#pum#visible()   ? coc#pum#cancel() : coc#snippet#jumpable() ? coc#snippet#cancel() : "\<Esc>"
