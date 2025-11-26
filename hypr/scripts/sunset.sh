@@ -3,23 +3,29 @@
 # SUNSET_SCRIPT=$HOME/.config/hypr/cache/SUNSET.sh
 SUNSET_SCRIPT=$HOME/.cache/SUNSET.sh
 
-source $SUNSET_SCRIPT
+if [ -f "$SUNSET_SCRIPT" ]; then
+	source $SUNSET_SCRIPT
+else
+	printf "export SUNSET=true\n" > $SUNSET_SCRIPT
+fi
 
-case $SUNSET in 
+echo "$SUNSET"
+cat "$SUNSET_SCRIPT"
+case "$SUNSET" in 
 	
-	"true")
-		killall hyprsunset
-		hyprsunset -t 4000 &
-		printf "#!bin/bash\nexport SUNSET='false'" > $SUNSET_SCRIPT
+	false)
+		echo "false"
+		hyprctl hyprsunset temperature 4000
+		printf "export SUNSET=true\n" > $SUNSET_SCRIPT
 		;;
-	"false")
-		killall hyprsunset
-		hyprsunset -t 6000 &
-		printf "#!bin/bash\nexport SUNSET='true'" > $SUNSET_SCRIPT
+	true)
+		echo "true"
+		hyprctl hyprsunset temperature 6000	
+		printf "export SUNSET=false\n" > $SUNSET_SCRIPT
 		;;
 	*)
-		killall hyprsunset
-		hyprsunset -t 6000 &
-		printf "#!bin/bash\nexport SUNSET='true'" > $SUNSET_SCRIPT
+		echo "default"
+		hyprctl hyprsunset temperature 6000
+		printf "export SUNSET=false\n" > $SUNSET_SCRIPT
 		;;
 esac
