@@ -1,3 +1,4 @@
+bibata-cursor-theme-bin
 blueman
 bluez-utils
 brightnessctl
@@ -9,6 +10,7 @@ espanso-wayland-git
 git
 git-lfs
 pipewire
+plymouth
 hypridle
 hyprland
 hyprlock
@@ -31,5 +33,6 @@ firefox
 waybar
 wofi
 xdg-desktop-portal-hyprland
+yay
 zathura
 zathura-pdf-mupdf
