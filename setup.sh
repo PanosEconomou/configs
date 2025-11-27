@@ -68,7 +68,7 @@ find_unavailable() {
 
 	for pkg in "$@"; do
 		case "$distro_id" in
-			arch|manjaro)
+			arch|manjaro|archarm)
 				if ! pacman -Si "$pkg" &>/dev/null; then
 					unavailable+=("$pkg")
 				fi
@@ -94,7 +94,7 @@ find_unavailable() {
 
 install() {
 	case "$distro_id" in
-		arch|manjaro)
+		arch|manjaro|archarm)
 			sudo pacman -S "$@"
 			;;
 		fedora|rhel|fedora-asahi-remix)
@@ -250,7 +250,7 @@ completed "~/.bashrc modified successfully."
 # Now we need to install the relevant hyprland utilities
 confirm "Install some fonts?"
 case "$distro_id" in
-	arch|manjaro)
+	arch|manjaro|archarm)
 		mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-arch.txt")
 		install "--needed" "${packages[@]}"
 		;;
@@ -278,7 +278,7 @@ completed "Basic packages installed"
 info "Let's set up the display manager (sddm)"
 info "Installing astronaut theme dependencies"
 case "$distro_id" in
-	arch|manjaro)
+	arch|manjaro|archarm)
 		sudo pacman -S qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg 
 		;;
 	fedora|rhel|fedora-asahi-remix)
@@ -299,12 +299,14 @@ sudo git clone -b master --depth 1 https://github.com/keyitdev/sddm-astronaut-th
 sudo cp -r /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
+makdir -p /etc/sddm.conf.d
 echo "[General]
 InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
-sudo ln -s "$REPO/sddm_theme.conf" "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
+sudo cp "$REPO/sddm_theme.conf" "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
+sed -i "%s/ConfigFile=.*/ConfigFile=Themes/sddm_theme" "/usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop"
 completed "Successfully cloned the astronaut repo and copied fonts and config"
 
 confirm "Enable sddm?"
-sudo systemctl enable sddm --now
+sudo systemctl enable sddm.service --now
 completed "Successfully enabled sddm"
 
