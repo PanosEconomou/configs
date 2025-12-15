@@ -226,6 +226,8 @@ set background=dark
 highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE
 highlight LineNr ctermbg=NONE guibg=NONE
+highlight Cursorline ctermbg=NONE guibg=NONE
+highlight Cursorcolumn ctermbg=NONE guibg=NONE
 
 
 " Display more of the file by default.
