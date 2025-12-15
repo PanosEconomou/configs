@@ -1,0 +1,4 @@
+espanso-wayland
+typora
+vim-plug
+slack-desktop
