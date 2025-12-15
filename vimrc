@@ -51,7 +51,7 @@ set history=1000
 set wildmenu
 
 " Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
+set wildmode=longest,list,full
 
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
@@ -72,11 +72,26 @@ call plug#begin('~/.vim/plugged')
 
 call plug#end()
 
+" Disable ALE for tex files
+let g:ale_linters = {
+			\ 'tex': [],
+			\}
+
 " Set up vimtex plugin
 let g:text_flavor = 'latex'
 let g:vimtex_view_method = 'zathura_simple'
 let g:vimtex_view_zathura_use_xdotool = 0
 let g:vimtex_quickfix_mode = 0
+let g:vimtex_lint_chktex_ignore_warnings = '-n1 -n3 -n8 -n25 -n36'
+let g:vimtex_compiler_latexmk = {
+			\ 'options' : [
+			\	'-shell-escape',
+			\	'-verbose',
+			\	'-file-line-error',
+			\	'-synctex=1',
+			\	'-interaction=nonstopmode',
+			\ ],
+			\}
 let maplocalleader = ";"
 
 " This will cleanup all the files used to live compile latex
@@ -154,7 +169,6 @@ nnoremap <F3> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
 
 " }}}
-
 
 " STATUS LINE ------------------------------------------------------------ {{{
 
