@@ -1,3 +1,9 @@
+# Except
+!Typora/conf/*
+!nchat/color.conf
+!nchat/usercolor.conf
+!espanso/match/base.yml
+
 # Ignore
 Slack/
 Typora/*
@@ -33,9 +39,4 @@ Kitware/
 Wolfram/
 btop/
 environment.d/
-
-# Except
-!Typora/conf/*
-!nchat/color.conf
-!nchat/usercolor.conf
-!espanso/match/base.yml
+inkscape/
