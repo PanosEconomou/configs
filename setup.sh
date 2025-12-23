@@ -299,7 +299,7 @@ sudo git clone -b master --depth 1 https://github.com/keyitdev/sddm-astronaut-th
 sudo cp -r /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
-makdir -p /etc/sddm.conf.d
+mkdir -p /etc/sddm.conf.d
 echo "[General]
 InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
 sudo cp "$REPO/sddm_theme.conf" "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
