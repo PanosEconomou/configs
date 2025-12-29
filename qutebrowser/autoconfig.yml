@@ -6,10 +6,13 @@
 
 config_version: 2
 settings:
+  auto_save.session:
+    global: true
   bindings.commands:
     global:
       normal:
         <Space>: 'cmd-set-text :'
+        P: :spawn --userscript qute-pass
   content.notifications.enabled:
     https://www.exchangetuts.com: false
   editor.command:
