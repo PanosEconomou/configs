@@ -12,6 +12,13 @@ settings:
         <Space>: 'cmd-set-text :'
   content.notifications.enabled:
     https://www.exchangetuts.com: false
+  editor.command:
+    global:
+    - vim
+    - -f
+    - '{file}'
+    - -c
+    - normal {line}G{column0}l
   statusbar.show:
     global: in-mode
   tabs.show:
