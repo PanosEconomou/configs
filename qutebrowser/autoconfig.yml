@@ -10,6 +10,8 @@ settings:
     global:
       normal:
         <Space>: 'cmd-set-text :'
+  content.notifications.enabled:
+    https://www.exchangetuts.com: false
   statusbar.show:
     global: in-mode
   tabs.show:
