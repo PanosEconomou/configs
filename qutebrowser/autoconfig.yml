@@ -6,13 +6,42 @@
 
 config_version: 2
 settings:
+  auto_save.session:
+    global: true
   bindings.commands:
     global:
       normal:
         <Space>: 'cmd-set-text :'
+        P: :spawn --userscript qute-pass --password-only
+        p: :spawn --userscript qute-pass
+  completion.open_categories:
+    global:
+    - quickmarks
+    - searchengines
+    - bookmarks
+    - history
+    - filesystem
   content.notifications.enabled:
     https://www.exchangetuts.com: false
+  editor.command:
+    global:
+    - vim
+    - -f
+    - '{file}'
+    - -c
+    - normal {line}G{column0}l
+  qt.highdpi:
+    global: false
   statusbar.show:
     global: in-mode
   tabs.show:
     global: switching
+  url.incdec_segments:
+    global:
+    - path
+    - query
+  url.searchengines:
+    global:
+      DEFAULT: https://duckduckgo.com/?q={}
+      aw: https://wiki.archlinux.org/?search={}
+      you: https://www.youtube.com/results?search_query={}
