@@ -44,3 +44,6 @@ matches:
         params:
           cmd: "curl 'https://api.ipify.org'"
 
+  - trigger: ":gmail"
+    replace: "panos.economou.v@gmail.com"
+
