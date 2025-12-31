@@ -31,3 +31,5 @@ wofi
 xdg-desktop-portal-hyprland
 zathura
 zathura-pdf-mupdf
+pass
+qutebrowser

@@ -21,8 +21,16 @@ settings:
     - bookmarks
     - history
     - filesystem
+  content.headers.user_agent:
+    global: Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko)
+      {upstream_browser_key}/{upstream_browser_version_short} Safari/{webkit_version}
   content.notifications.enabled:
     https://www.exchangetuts.com: false
+    https://www.netflix.com: false
+  content.register_protocol_handler:
+    https://mail.google.com?extsrc=mailto&url=%25s: true
+  downloads.position:
+    global: bottom
   editor.command:
     global:
     - vim
