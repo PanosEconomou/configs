@@ -24,10 +24,15 @@ settings:
   content.headers.user_agent:
     global: Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko)
       {upstream_browser_key}/{upstream_browser_version_short} Safari/{webkit_version}
+  content.javascript.clipboard:
+    https://chatgpt.com: access-paste
+    https://duckduckgo.com: access-paste
   content.notifications.enabled:
+    https://calendar.google.com: false
     https://www.exchangetuts.com: false
     https://www.netflix.com: false
   content.register_protocol_handler:
+    https://calendar.google.com?cid=%25s: true
     https://mail.google.com?extsrc=mailto&url=%25s: true
   downloads.position:
     global: bottom
