@@ -27,6 +27,7 @@ settings:
   content.javascript.clipboard:
     https://chatgpt.com: access-paste
     https://duckduckgo.com: access-paste
+    https://github.com: access-paste
   content.notifications.enabled:
     https://calendar.google.com: false
     https://www.exchangetuts.com: false
