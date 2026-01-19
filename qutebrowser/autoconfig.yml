@@ -11,6 +11,7 @@ settings:
   bindings.commands:
     global:
       normal:
+        ',,': download-open ;; download-clear
         <Space>: 'cmd-set-text :'
         P: :spawn --userscript qute-pass --password-only
         p: :spawn --userscript qute-pass
