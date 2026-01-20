@@ -22,7 +22,6 @@ systemd/
 user-dirs.dirs
 user-dirs.locale
 gpt-cli/
-hypr/hyprpaper.conf
 .gsd-keyboard.settings-ported
 baloofilerc
 gtk-3.0/
