@@ -96,6 +96,7 @@ let maplocalleader = ";"
 
 " This will cleanup all the files used to live compile latex
 noremap <localleader>lc :VimtexStop<cr> <plug>(vimtex-clean-full)<cr>
+noremap <localleader>lC :VimtexStop<cr> <plug>(vimtex-clean)<cr>
 
 " In insert mode: if the completion menu is visible, <Tab> → <C-y>, else do normal <Tab>
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
