@@ -3,6 +3,7 @@
 !nchat/color.conf
 !nchat/usercolor.conf
 !espanso/match/base.yml
+!espanso/config/default.yml 
 
 # Ignore
 Slack/
