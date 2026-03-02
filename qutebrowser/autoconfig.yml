@@ -31,6 +31,8 @@ settings:
     https://chatgpt.com: access-paste
     https://duckduckgo.com: access-paste
     https://github.com: access-paste
+  content.media.audio_capture:
+    https://chatgpt.com: true
   content.media.audio_video_capture:
     https://app.zoom.us: true
   content.notifications.enabled:
