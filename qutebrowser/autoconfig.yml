@@ -22,19 +22,26 @@ settings:
     - bookmarks
     - history
     - filesystem
+  content.cookies.store:
+    global: true
   content.geolocation:
     https://www.speedtest.net: false
+  content.headers.do_not_track:
+    global: false
   content.headers.user_agent:
     global: Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko)
       {upstream_browser_key}/{upstream_browser_version_short} Safari/{webkit_version}
   content.javascript.clipboard:
     https://chatgpt.com: access-paste
+    https://claude.ai: access-paste
     https://duckduckgo.com: access-paste
     https://github.com: access-paste
   content.media.audio_capture:
     https://chatgpt.com: true
   content.media.audio_video_capture:
     https://app.zoom.us: true
+    https://diagnostics.simplepractice.com: true
+    https://video.simplepractice.com: true
   content.notifications.enabled:
     https://app.zoom.us: true
     https://calendar.google.com: false
@@ -55,6 +62,8 @@ settings:
     - normal {line}G{column0}l
   qt.highdpi:
     global: false
+  qt.workarounds.disable_hangouts_extension:
+    global: true
   statusbar.show:
     global: in-mode
   tabs.show:
