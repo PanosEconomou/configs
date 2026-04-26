@@ -37,11 +37,14 @@ settings:
     https://duckduckgo.com: access-paste
     https://github.com: access-paste
   content.media.audio_capture:
+    https://app.zoom.us: true
     https://chatgpt.com: true
   content.media.audio_video_capture:
     https://app.zoom.us: true
     https://diagnostics.simplepractice.com: true
     https://video.simplepractice.com: true
+  content.media.video_capture:
+    https://app.zoom.us: true
   content.notifications.enabled:
     https://app.zoom.us: true
     https://calendar.google.com: false
