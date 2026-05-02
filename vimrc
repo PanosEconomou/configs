@@ -58,7 +58,6 @@ set wildmode=longest,list,full
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 
-
 " PLUGINS ---------------------------------------------------------------- {{{
 
 call plug#begin('~/.vim/plugged')
@@ -99,18 +98,59 @@ noremap <localleader>lc :VimtexStop<cr> <plug>(vimtex-clean-full)<cr>
 noremap <localleader>lC :VimtexStop<cr> <plug>(vimtex-clean)<cr>
 
 " In insert mode: if the completion menu is visible, <Tab> → <C-y>, else do normal <Tab>
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
+" inoremap <silent><expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
 
 " Setup Ultisnips
-let g:UltiSnipsExpandTrigger       = '<Tab>'    " use Tab to expand snippets
-let g:UltiSnipsJumpForwardTrigger  = '<Tab>'    " use Tab to move forward through tabstops
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'  " use Shift-Tab to move backward through tabstops
+let g:UltiSnipsExpandTrigger       = '<nop>'    " use Tab to expand snippets
+let g:UltiSnipsJumpForwardTrigger  = '<nop>'    " use Tab to move forward through tabstops
+let g:UltiSnipsJumpBackwardTrigger = '<nop>'  " use Shift-Tab to move backward through tabstops
 
 set shortmess+=c
 " inoremap <silent><expr> <Esc> coc#pum#visible()   ? coc#pum#cancel() : coc#snippet#jumpable() ? coc#snippet#cancel() : "\<Esc>"
 
-" }}}
+" Some stuff to set up coc autocompletion from
+" https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.vim
 
+" May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
+" utf-8 byte sequence
+set encoding=utf-8
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
+" delays and poor user experience
+set updatetime=300
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+inoremap <silent><expr> <c-@> coc#refresh()
+
+" }}}
 
 " MAPPINGS --------------------------------------------------------------- {{{
 
@@ -190,7 +230,6 @@ set laststatus=2
 
 " }}}
 
-
 " VIMSCRIPT -------------------------------------------------------------- {{{
 
 
@@ -221,6 +260,7 @@ augroup END
 
 " }}}
 
+" APPEARANCE -------------------------------------------------------------- {{{
 " Set the colorscheme, but remove the background config
 colorscheme one
 set background=dark
@@ -268,3 +308,5 @@ if &term =~ 'kitty'
     let &t_SI = "\e[5 q"  " Set to bar cursor in insert mode
     let &t_EI = "\e[2 q"  " Reset to block cursor in normal mode
 endif
+
+" }}}
