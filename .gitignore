@@ -6,6 +6,7 @@
 !espanso/config/default.yml 
 
 # Ignore
+**/__pycache__/**
 Slack/
 Typora/*
 baloofileinformationrc
