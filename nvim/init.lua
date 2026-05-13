@@ -142,7 +142,38 @@ require("lazy").setup({
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
 		opts = {},
-	}
+	},
+
+	-- Julia Editing
+	{
+		"JuliaEditorSupport/julia-vim",
+		init = function()
+			vim.g.latex_to_unicode_auto=1
+		end,
+	},
+
+	-- Julia language server.
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"j-hui/fidget.nvim",
+		},
+		config =function()
+			vim.lsp.enable("julials")
+			vim.api.nvim_create_autocmd("LSPAttach", {
+				callback = function(ev)
+					local opts = { buffer = ev.buf }
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+					vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+				end,
+			})
+			
+		end,
+	},	
+
 
 }, {
 	-- lazy.nvim options
