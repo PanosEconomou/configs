@@ -32,3 +32,4 @@ zathura
 zathura-pdf-mupdf
 pass
 qutebrowser
+starship
