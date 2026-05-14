@@ -228,16 +228,9 @@ done
 completed "Symlinks created"
 
 
-# Install Starship
-if ! command -v starship &>/dev/null; then
-	info "Starship not found"
-	confirm "Install?"
-	curl -sS https://starship.rs/install.sh | sh
-else
-	completed "Starship is already installed."
-fi
 
 # Now append some lines bashrc
+confirm "Add aliases and starship to bashrc?"
 cat << EOF >> ~/.bashrc
 # Start Staship
 eval "$(starship init bash)"
