@@ -52,6 +52,7 @@ return {
                     map("n", "<leader>rn",  vim.lsp.buf.rename,         opts)
                     map("n", "<leader>ca",  vim.lsp.buf.code_action,    opts)
                     map("n", "<leader>f",   vim.lsp.buf.format,         opts)
+                    map("n", "<leader>e",   vim.diagnostic.open_float, opts)
                     map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, opts)
                     map("n", "]d", function() vim.diagnostic.jump({ count =  1 }) end, opts)
                 end,

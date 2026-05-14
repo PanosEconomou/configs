@@ -4,8 +4,8 @@ alias shelf="cd ~/shelf"
 alias confs="cd ~/.config"
 alias proj="cd ~/projects"
 alias tri="cd /home/pano/projects/tricritical-ising"
-alias tnotes="cd /home/pano/projects/thermo-notes"
 alias tasks="xdg-open 'https://github.com/users/PanosEconomou/projects/3'"
+alias def="cd ~/projects/Defuse/"
 
 alias rebash="source ~/.bashrc"
 alias battery="upower -i $(upower -e | grep -i BAT) | grep --color=never -E 'state|to full|to empty|percentage'"
@@ -14,6 +14,7 @@ alias bat="battery"
 alias printers="xdg-open http://localhost:631/"
 alias la="ls -la"
 alias code="/usr/bin/code --enable-proposed-api ms-toolsai.jupyter"
+alias vi="nvim"
 alias eba="source env/bin/activate"
 
 # A collection of functions that act as aliases
