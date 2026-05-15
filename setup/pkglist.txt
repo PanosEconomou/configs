@@ -1,4 +1,5 @@
 blueman
+bluetui
 bluez-utils
 brightnessctl
 btop
