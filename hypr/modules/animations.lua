@@ -9,29 +9,38 @@ config({
     }
 })
 
--- Define some curves
-curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
-curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1}    } })
-curve("linear",         { type = "bezier", points = { {0, 0},       {1, 1}       } })
-curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}    } })
-curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
-curve("easy",           { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
+-- Snappy ease-out for instant feel
+curve("snap",    { type = "bezier", points = { {0.05, 0.9}, {0.1, 1.0} } })
+-- Quick deceleration for closing/fading
+curve("snapOut", { type = "bezier", points = { {0.25, 1.0}, {0.5, 1.0} } })
+-- Bouncy spring: snappy attack + gentle overshoot
+curve("bounce", { type = "spring", mass = 1, stiffness = 100, dampening = 16 })
+-- Softer spring for workspace transitions
+curve("wsSoft", { type = "spring", mass = 1, stiffness = 90,  dampening = 16 })
 
--- Apply to windows
-animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
-animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
-animation({ leaf = "windows",       enabled = true,  speed = 4.79, spring = "easy" })
-animation({ leaf = "windowsIn",     enabled = true,  speed = 4.1,  spring = "easy",         style = "popin 87%" })
-animation({ leaf = "windowsOut",    enabled = true,  speed = 1.49, bezier = "linear",       style = "popin 87%" })
-animation({ leaf = "fadeIn",        enabled = true,  speed = 1.73, bezier = "almostLinear" })
-animation({ leaf = "fadeOut",       enabled = true,  speed = 1.46, bezier = "almostLinear" })
-animation({ leaf = "fade",          enabled = true,  speed = 3.03, bezier = "quick" })
-animation({ leaf = "layers",        enabled = true,  speed = 3.81, bezier = "easeOutQuint" })
-animation({ leaf = "layersIn",      enabled = true,  speed = 4,    bezier = "easeOutQuint", style = "fade" })
-animation({ leaf = "layersOut",     enabled = true,  speed = 1.5,  bezier = "linear",       style = "fade" })
-animation({ leaf = "fadeLayersIn",  enabled = true,  speed = 1.79, bezier = "almostLinear" })
-animation({ leaf = "fadeLayersOut", enabled = true,  speed = 1.39, bezier = "almostLinear" })
-animation({ leaf = "workspaces",    enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
-animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "almostLinear", style = "fade" })
-animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
-animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
+-- Open: pops in with a lil bounce (popin = scale from center)
+animation({ leaf = "windowsIn",   enabled = true, speed = 4, spring = "bounce", style = "popin 80%" })
+-- Close: snaps out fast, no linger
+animation({ leaf = "windowsOut",  enabled = true, speed = 2, bezier = "snapOut", style = "popin 80%" })
+-- Move/resize: snappy, spring-settled
+animation({ leaf = "windowsMove", enabled = true, speed = 3, spring = "bounce" })
+
+-- Workspace switch: smooth slide with soft spring
+animation({ leaf = "workspaces",        enabled = true, speed = 4, spring = "wsSoft", style = "slide" })
+-- Special workspaces (scratchpad etc): slide down, bouncy
+animation({ leaf = "specialWorkspace", enabled = true, speed = 4, spring = "bounce", style = "slidevert" })
+
+-- Fade in/out: quick, not distracting
+animation({ leaf = "fade",        enabled = true, speed = 3, bezier = "snap" })
+animation({ leaf = "fadeOut",     enabled = true, speed = 2, bezier = "snapOut" })
+-- Layers (bars, notifications): slide in from top
+animation({ leaf = "layers",      enabled = true, speed = 3, spring = "bounce", style = "slide" })
+-- Border: subtle animated glow angle
+animation({ leaf = "fadeIn",     enabled = true, speed = 3, bezier = "snap" })
+animation({ leaf = "fadeOut",    enabled = true, speed = 2, bezier = "snapOut" })
+animation({ leaf = "fadeSwitch", enabled = true, speed = 2, bezier = "snap" })
+animation({ leaf = "fadeDim",    enabled = true, speed = 3, bezier = "snap" })
+
+-- Layers (bars, notifications): slide in with bounce
+animation({ leaf = "layersIn",  enabled = true, speed = 3, spring = "bounce", style = "slide" })
+animation({ leaf = "layersOut", enabled = true, speed = 2, bezier = "snapOut", style = "slide" })
