@@ -1,5 +1,6 @@
 -- Customize the look and feel
-local config = hl.config
+local config    = hl.config
+local rule      = hl.layer_rule
 
 config({
     general = {
@@ -47,4 +48,10 @@ config({
             color           = "rgba(3dd8ffaa)",
         }
     },
+})
+
+rule({
+    match           = { namespace = "notifications" },
+    blur            = true,
+    ignore_alpha    = 0.0,
 })
