@@ -36,6 +36,7 @@ settings:
     https://claude.ai: access-paste
     https://duckduckgo.com: access-paste
     https://github.com: access-paste
+    https://wiki.hypr.land: access-paste
   content.media.audio_capture:
     https://app.zoom.us: true
     https://chatgpt.com: true
