@@ -126,9 +126,9 @@ fi
 # Anything that needs to be symlinked from the repo into the rigth place
 # They are in the form target link
 symlinks=(
-	"$REPO/vimrc $HOME/.vimrc"
 	"$REPO/Pictures $HOME/Pictures"
 	"$REPO/bash_aliases $HOME/.bash_aliases"
+	"$REPO/latexmkrc $HOME/.latexmkrc"
 )
 
 ##################################################################
