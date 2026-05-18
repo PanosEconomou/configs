@@ -3,6 +3,7 @@ set adjust-open "best-fit"
 
 map [index] <Right> navigate_index expand
 map [index] <Left> navigate_index collapse
+map <Space> feedkeys ":"
 
 set selection-clipboard clipboard
 
