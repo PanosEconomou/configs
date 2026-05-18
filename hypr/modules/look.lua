@@ -21,6 +21,10 @@ config({
         layout              = "dwindle",
     },
 
+    dwindle = {
+        preserve_split      = true,
+    },
+
     decoration = {
         -- Rounding
         rounding            = 10,

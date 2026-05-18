@@ -32,6 +32,7 @@ bind(mod.." + SPACE",       exec(default.menu))
 bind(mod.." + P",           hl.dsp.window.pseudo())
 bind(mod.." + T",           exec(default.todo))
 bind(mod.." + S",           default.sunset.toggle)
+bind(mod.." + O",           hl.dsp.layout("togglesplit"))
 
 -- Media Buttons
 local media = {
