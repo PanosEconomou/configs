@@ -53,3 +53,7 @@ gcma() {
 	git commit -m "$*"
 	git push origin main
 }
+
+yy() {
+    "$@" | clip;
+}
