@@ -27,7 +27,7 @@ return {
             view = {
                 width = 30,
             },
-        },       
+        },
     },
 
 
@@ -101,6 +101,15 @@ return {
                 progress = { enabled = false },
             },
             routes = {
+                {
+                    filter = { event = 'msg_show', kind = { 'shell_out', 'shell_err' } },
+                    view = 'popup',
+                    opts = {
+                        level = 'info',
+                        skip = false,
+                        replace = false,
+                    },
+                },
                 {
                     filter = { event = "msg_show", kind = "search_count" },
                     opts   = { skip = true },
