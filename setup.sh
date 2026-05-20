@@ -1,4 +1,5 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+set -euo pipefail
 
 ##################################################################
 # Some stuff for the installation script to look pretty
@@ -93,23 +94,53 @@ find_unavailable() {
 }
 
 install() {
-	case "$distro_id" in
-		arch|manjaro|archarm)
-			sudo pacman -S "$@"
-			;;
-		fedora|rhel|fedora-asahi-remix)
-			if [ -z "${FORCE-}" ]; then 
-				sudo dnf install --skip-unavailable "$@"
-			else 
-				sudo dnf install -y --skip-unavailable "$@"
-			fi
-			;;
-		*)
-			error "Unsupported distribution: $distro_id"
-			exit 1
-			;;
+    case "$distro_id" in
+        arch|manjaro|archarm)
+            if [[ -n "${FORCE-}" ]]; then
+                sudo pacman -S --needed --noconfirm "$@"
+            else
+                sudo pacman -S --needed "$@"
+            fi
+            ;;
+        fedora|rhel|fedora-asahi-remix)
+            if [[ -z "${FORCE-}" ]]; then
+                sudo dnf install --skip-unavailable "$@"
+            else
+                sudo dnf install -y --skip-unavailable "$@"
+            fi
+            ;;
+        *) error "Unsupported distribution: $distro_id"; exit 1 ;;
+    esac
+}
 
-	esac
+install_aur() {
+    if [[ -n "${FORCE-}" ]]; then
+        yay -S --needed --noconfirm "$@"
+    else
+        yay -S --needed "$@"
+    fi
+}
+
+bootstrap_yay() {
+    if command -v yay &>/dev/null; then
+        completed "yay is already installed"
+        return
+    fi
+    info "yay not found; bootstrapping from AUR"
+    install base-devel git
+    local tmpdir
+    tmpdir=$(mktemp -d)
+    trap 'rm -rf "$tmpdir"' RETURN
+    git clone https://aur.archlinux.org/yay-bin.git "$tmpdir/yay-bin"
+    (
+        cd "$tmpdir/yay-bin"
+        if [[ -n "${FORCE-}" ]]; then
+            makepkg -si --noconfirm
+        else
+            makepkg -si
+        fi
+    )
+    completed "yay installed"
 }
 
 ##################################################################
@@ -120,15 +151,15 @@ REPO="$HOME/.config"
 REPO_URL_SSH="git@github.com:PanosEconomou/configs.git"
 REPO_URL_HTTPS="https://github.com/PanosEconomou/configs.git"
 if [[ -z "${DOWNLOAD_REPO-}" ]]; then
-	DOWNLOAD_REPO="$REPO_URL_HTTPS"
+    DOWNLOAD_REPO="$REPO_URL_HTTPS"
 fi
 
 # Anything that needs to be symlinked from the repo into the rigth place
 # They are in the form target link
 symlinks=(
-	"$REPO/Pictures $HOME/Pictures"
-	"$REPO/bash_aliases $HOME/.bash_aliases"
-	"$REPO/latexmkrc $HOME/.latexmkrc"
+    "$REPO/Pictures $HOME/Pictures"
+    "$REPO/bash_aliases $HOME/.bash_aliases"
+    "$REPO/latexmkrc $HOME/.latexmkrc"
 )
 
 ##################################################################
@@ -136,33 +167,31 @@ symlinks=(
 
 # Parse inline arguments
 while [ "$#" -gt 0 ]; do
-	case "$1" in
-		-f | -y | --force | --yes)
-    		FORCE=1
-    		shift 1
-    		;;
-		-s | --ssh)
-			echo "$DOWNLOAD_REPO"
-			DOWNLOAD_REPO="$REPO_URL_SSH"
-			echo "$DOWNLOAD_REPO"
-			shift 1
-			;;			
-		-h)
-			usage
-			exit
-			;;
-		*)
-			error "Unknown option: $1"
-			usage
-			exit 1
-			;;
-	esac
+    case "$1" in
+        -f | -y | --force | --yes)
+            FORCE=1
+            shift 1
+            ;;
+        -s | --ssh)
+            DOWNLOAD_REPO="$REPO_URL_SSH"
+            shift 1
+            ;;			
+        -h | --help)
+            usage
+            exit
+            ;;
+        *)
+            error "Unknown option: $1"
+            usage
+            exit 1
+            ;;
+    esac
 done
 
 ##################################################################
 ##################################################################
 
-printf "${BOLD}${GREEN}Welcome to the padots installation!${NO_COLOR}\n"
+printf '%s\n' "${BOLD}${GREEN}Welcome to the padots installation!${NO_COLOR}\n"
 printf "Let's walk through this together.\n\n"
 
 # Check the linux distribution
@@ -170,36 +199,56 @@ printf "Let's walk through this together.\n\n"
 if [[ -f /etc/os-release ]]; then
     . /etc/os-release
     distro_id=$ID
-	completed "Linux Distribution: ${BOLD}$distro_id${NO_COLOR}"
+    completed "Linux Distribution: ${BOLD}$distro_id${NO_COLOR}"
 else
     error "Cannot detect Linux distribution."
     exit 1
 fi
 
+# Update the system just in case
+confirm "Update system packages first?"
+case "$distro_id" in
+    arch|manjaro|archarm)
+        if [[ -n "${FORCE-}" ]]; then
+            sudo pacman -Syu --noconfirm
+        else
+            sudo pacman -Syu
+        fi
+        ;;
+    fedora|rhel|fedora-asahi-remix)
+        if [[ -n "${FORCE-}" ]]; then
+            sudo dnf upgrade -y
+        else
+            sudo dnf upgrade
+        fi
+        ;;
+esac
+completed "System updated correctly"
+
 # Check if the repo is downloaded
 if ! command -v git &>/dev/null; then
-	info "git not found"
-	confirm "Install?"
-	install git
+    info "git not found"
+    confirm "Install?"
+    install git
 else
-	completed "git is already installed."
+    completed "git is already installed."
 fi
 
 # Check if the repo exists
 if [[ -d "$REPO/.git" ]]; then
-	url=$(git -C "$REPO" remote get-url origin 2>/dev/null)	
-	if [[ "$url" == "$REPO_URL_SSH" ]]; then
-		completed "Padots repo is cloned via ssh."
-	elif  [[ "$url" == "$REPO_URL_HTTPS" ]]; then
-		warn "Padots repo is cloned via HTTPS. This is fine but version control might not work."
-	else
-		error "A repo exsits but it doesn't match. Please fix it before proceeding."
-	fi
+    url=$(git -C "$REPO" remote get-url origin 2>/dev/null)	
+    if [[ "$url" == "$REPO_URL_SSH" ]]; then
+        completed "Padots repo is cloned via ssh."
+    elif  [[ "$url" == "$REPO_URL_HTTPS" ]]; then
+        warn "Padots repo is cloned via HTTPS. This is fine but version control might not work."
+    else
+        error "A repo exsits but it doesn't match. Please fix it before proceeding."
+    fi
 else
-	warn "Padots repo is not installed."
-	confirm "Install $DOWNLOAD_REPO at $REPO?"
-	git clone "$DOWNLOAD_REPO" "$REPO"
-	completed "Padots repo is cloned."
+    warn "Padots repo is not installed."
+    confirm "Install $DOWNLOAD_REPO at $REPO?"
+    git clone "$DOWNLOAD_REPO" "$REPO"
+    completed "Padots repo is cloned."
 fi
 
 # Let's first some files
@@ -207,22 +256,24 @@ info "Let's ${BOLD}link some configs${NO_COLOR} to the right places."
 info "This is a list of them:"
 
 for symlink in "${symlinks[@]}"; do
-	link=$(echo "$symlink" | awk '{print $2}')
-	info "  $link"
+    link=$(echo "$symlink" | awk '{print $2}')
+    info "  $link"
 done
 printf "\n"
 
 confirm "Create Symlinks?"
 
 for symlink in "${symlinks[@]}"; do
-	target=$(echo "$symlink" | awk '{print $1}')
-	link=$(echo "$symlink" | awk '{print $2}')
-	
-	if [[ ! -e "$link" ]]; then
-		ln -s "$target" "$link"
-	else
-		warn "Skipped: $link already exists"
-	fi
+    target=$(echo "$symlink" | awk '{print $1}')
+    link=$(echo "$symlink" | awk '{print $2}')
+
+    if [[ -L "$link" ]]; then
+        warn "Skipped: $link already a symlink"
+    elif [[ -e "$link" ]]; then
+        warn "Skipped: $link exists and is not a symlink"
+    else
+        ln -s "$target" "$link"
+    fi
 done
 
 completed "Symlinks created"
@@ -231,76 +282,126 @@ completed "Symlinks created"
 
 # Now append some lines bashrc
 confirm "Add aliases and starship to bashrc?"
-cat << EOF >> ~/.bashrc
-# Start Staship
-eval "$(starship init bash)"
+if ! grep -qF "padots: starship+aliases" ~/.bashrc 2>/dev/null; then
+    cat << 'EOF' >> ~/.bashrc
 
-# User specific aliases and functions
+# padots: starship+aliases
+eval "$(starship init bash)"
 source ~/.bash_aliases
 EOF
+fi
 completed "~/.bashrc modified successfully."
 
 # Now we need to install the relevant hyprland utilities
 confirm "Install some fonts?"
 case "$distro_id" in
-	arch|manjaro|archarm)
-		mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-arch.txt")
-		install "--needed" "${packages[@]}"
-		;;
-	fedora|rhel|fedora-asahi-remix)
-		mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-fedora.txt")
-		install "${packages[@]}"
-		;;
-	*)
-		error "Unsupported distribution: $distro_id"
-		exit 1
-		;;
+    arch|manjaro|archarm)
+        mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-arch.txt")
+        install "${packages[@]}"
+        ;;
+    fedora|rhel|fedora-asahi-remix)
+        mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-fedora.txt")
+        install "${packages[@]}"
+        ;;
+    *)
+        error "Unsupported distribution: $distro_id"
+        exit 1
+        ;;
 esac
 completed "Fonts successfully installed."
 
 # Finally we can install some packages
 info "Let me check which packages are available through your package manager"
 mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/pkglist.txt")
-find_unavailable "${package[@]}"
+find_unavailable "${packages[@]}"
+
+filtered=()
+for pkg in "${packages[@]}"; do
+    if ! [[ " ${unavailable[*]} " =~ " ${pkg} " ]]; then
+        filtered+=("$pkg")
+    fi
+done
 
 confirm "Install the basic packages?"
-install "${packages[@]}"
+install "${filtered[@]}"
 completed "Basic packages installed"
+
+# AUR packages on arch
+if [[ "$distro_id" == "arch" || "$distro_id" == "manjaro" || "$distro_id" == "archarm" ]]; then
+    if [[ -f "$REPO/setup/yaypkglist.txt" ]]; then
+        confirm "Install yay and AUR packages?"
+        bootstrap_yay
+
+        mapfile -t aur_packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/yaypkglist.txt")
+        if [[ ${#aur_packages[@]} -gt 0 ]]; then
+            install_aur "${aur_packages[@]}"
+            completed "AUR packages installed"
+        else
+            info "yaypkglist.txt is empty, nothing to install"
+        fi
+    else
+        warn "$REPO/setup/yaypkglist.txt not found, skipping AUR install"
+    fi
+fi
+
+# Set up default GTK dark mode
+confirm "Set up default dark mode?"
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+completed "GTK dark mode is set to Adwaita-dark"
 
 # Set up SDDM
 info "Let's set up the display manager (sddm)"
 info "Installing astronaut theme dependencies"
 case "$distro_id" in
-	arch|manjaro|archarm)
-		sudo pacman -S qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg 
-		;;
-	fedora|rhel|fedora-asahi-remix)
-		if [ -z "${FORCE-}" ]; then 
-			sudo dnf install qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia 
-		else 
-			sudo dnf install -y qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia 
-		fi
-		;;
-	*)
-		error "Unsupported distribution: $distro_id"
-		exit 1
-		;;
+    arch|manjaro|archarm)
+        install qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
+        ;;
+    fedora|rhel|fedora-asahi-remix)
+        install qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia
+        ;;
+    *) error "Unsupported distribution: $distro_id"; exit 1 ;;
 esac
 completed "Installed Astronaut Dependencies"
 
-sudo git clone -b master --depth 1 https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
+if [[ ! -d /usr/share/sddm/themes/sddm-astronaut-theme ]]; then
+    sudo git clone -b master --depth 1 \
+        https://github.com/keyitdev/sddm-astronaut-theme.git \
+        /usr/share/sddm/themes/sddm-astronaut-theme
+fi
 sudo cp -r /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
+sudo fc-cache -f
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
 sudo mkdir -p /etc/sddm.conf.d
 echo "[General]
 InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
-sudo cp "$REPO/sddm_theme.conf" "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
-sudo sed -i 's|^ConfigFile=.*|ConfigFile=Themes/sddm_theme|' /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
-# sed -i "%s/ConfigFile=.*/ConfigFile=Themes/sddm_theme" "/usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop"
+if [[ -f "$REPO/sddm_theme.conf" ]]; then
+    sudo cp "$REPO/sddm_theme.conf" \
+        "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
+else
+    warn "$REPO/sddm_theme.conf not found, skipping custom theme config"
+fi
+sudo sed -i 's|^ConfigFile=.*|ConfigFile=Themes/sddm_theme.conf|' \
+    /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
 completed "Successfully cloned the astronaut repo and copied fonts and config"
 
-confirm "Enable sddm?"
-sudo systemctl enable sddm.service --now
-completed "Successfully enabled sddm"
+# Enable persistent ssh-agent as a user service
+confirm "Enable ssh-agent user service?"
+systemctl --user enable --now ssh-agent.service
+mkdir -p ~/.config/environment.d
+cat > ~/.config/environment.d/ssh-agent.conf << 'EOF'
+SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.socket
+EOF
+completed "ssh-agent enabled and SSH_AUTH_SOCK exported"
 
+# Enable the remaining services
+confirm "Enable remaining services?"
+sudo systemctl enable --now sddm.service
+sudo systemctl enable --now bluetooth.service
+sudo systemctl enable --now cups.service
+sudo systemctl enable --now iwd.service
+sudo systemctl enable --now keyd.service
+completed "Successfully enabled services"
+
+completed "Everything is done! Remember to do pass init <gpg-key> to enable the password manager"

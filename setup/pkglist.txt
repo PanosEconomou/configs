@@ -9,7 +9,6 @@ dunst
 git
 git-lfs
 pipewire
-plymouth
 hypridle
 hyprland
 hyprlock
@@ -34,3 +33,6 @@ zathura-pdf-mupdf
 pass
 qutebrowser
 starship
+glib2
+gsettings-desktop-schemas
+gnome-themes-extra
