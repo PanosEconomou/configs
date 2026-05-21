@@ -24,7 +24,7 @@ openssh
 sddm
 swayimg
 upower
-nvim
+neovim
 waybar
 wofi
 xdg-desktop-portal-hyprland

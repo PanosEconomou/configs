@@ -334,7 +334,7 @@ if [[ "$distro_id" == "arch" || "$distro_id" == "manjaro" || "$distro_id" == "ar
 
         mapfile -t aur_packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/yaypkglist.txt")
         if [[ ${#aur_packages[@]} -gt 0 ]]; then
-            install_aur "${aur_packages[@]}"
+            install_aur "${aur_packages[@]}" || true
             completed "AUR packages installed"
         else
             info "yaypkglist.txt is empty, nothing to install"
@@ -403,5 +403,9 @@ sudo systemctl enable --now cups.service
 sudo systemctl enable --now iwd.service
 sudo systemctl enable --now keyd.service
 completed "Successfully enabled services"
+
+# Setup git
+confirm "Setup git?"
+bash "$REPO/setup/setup-git.sh"
 
 completed "Everything is done! Remember to do pass init <gpg-key> to enable the password manager"
