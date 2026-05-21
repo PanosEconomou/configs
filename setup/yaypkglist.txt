@@ -1,3 +1,4 @@
 espanso-wayland
 typora
 slack-desktop
+bibata-cursor-theme-bin
