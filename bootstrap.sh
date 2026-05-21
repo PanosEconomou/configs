@@ -149,7 +149,7 @@ fi
  
 chmod +x "$SETUP_SCRIPT"
  
-nfo "Handing off to ${BOLD}$SETUP_SCRIPT${NO_COLOR}"
+info "Handing off to ${BOLD}$SETUP_SCRIPT${NO_COLOR}"
 echo
 # Redirect /dev/tty to stdin so child processes (pacman, ssh-keygen, etc.)
 # have a real terminal to read from. Without this, `curl ... | bash` would
