@@ -206,24 +206,25 @@ else
 fi
 
 # Update the system just in case
-confirm "Update system packages first?"
-case "$distro_id" in
-    arch|manjaro|archarm)
-        if [[ -n "${FORCE-}" ]]; then
-            sudo pacman -Syu --noconfirm
-        else
-            sudo pacman -Syu
-        fi
-        ;;
-    fedora|rhel|fedora-asahi-remix)
-        if [[ -n "${FORCE-}" ]]; then
-            sudo dnf upgrade -y
-        else
-            sudo dnf upgrade
-        fi
-        ;;
-esac
-completed "System updated correctly"
+if confirm "Update system packages first?"; then
+    case "$distro_id" in
+        arch|manjaro|archarm)
+            if [[ -n "${FORCE-}" ]]; then
+                sudo pacman -Syu --noconfirm
+            else
+                sudo pacman -Syu
+            fi
+            ;;
+        fedora|rhel|fedora-asahi-remix)
+            if [[ -n "${FORCE-}" ]]; then
+                sudo dnf upgrade -y
+            else
+                sudo dnf upgrade
+            fi
+            ;;
+    esac
+    completed "System updated correctly"
+fi
 
 # Check if the repo is downloaded
 if ! command -v git &>/dev/null; then
@@ -261,54 +262,57 @@ for symlink in "${symlinks[@]}"; do
 done
 printf "\n"
 
-confirm "Create Symlinks?"
+if confirm "Create Symlinks?"; then
 
-for symlink in "${symlinks[@]}"; do
-    target=$(echo "$symlink" | awk '{print $1}')
-    link=$(echo "$symlink" | awk '{print $2}')
+    for symlink in "${symlinks[@]}"; do
+        target=$(echo "$symlink" | awk '{print $1}')
+        link=$(echo "$symlink" | awk '{print $2}')
 
-    if [[ -L "$link" ]]; then
-        warn "Skipped: $link already a symlink"
-    elif [[ -e "$link" ]]; then
-        warn "Skipped: $link exists and is not a symlink"
-    else
-        ln -s "$target" "$link"
-    fi
-done
+        if [[ -L "$link" ]]; then
+            warn "Skipped: $link already a symlink"
+        elif [[ -e "$link" ]]; then
+            warn "Skipped: $link exists and is not a symlink"
+        else
+            ln -s "$target" "$link"
+        fi
+    done
 
-completed "Symlinks created"
+    completed "Symlinks created"
+fi 
 
 
 
 # Now append some lines bashrc
-confirm "Add aliases and starship to bashrc?"
-if ! grep -qF "padots: starship+aliases" ~/.bashrc 2>/dev/null; then
-    cat << 'EOF' >> ~/.bashrc
+if confirm "Add aliases and starship to bashrc?"; then
+    if ! grep -qF "padots: starship+aliases" ~/.bashrc 2>/dev/null; then
+        cat << 'EOF' >> ~/.bashrc
 
 # padots: starship+aliases
 eval "$(starship init bash)"
 source ~/.bash_aliases
 EOF
+    fi
+    completed "~/.bashrc modified successfully."
 fi
-completed "~/.bashrc modified successfully."
 
 # Now we need to install the relevant hyprland utilities
-confirm "Install some fonts?"
-case "$distro_id" in
-    arch|manjaro|archarm)
-        mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-arch.txt")
-        install "${packages[@]}"
-        ;;
-    fedora|rhel|fedora-asahi-remix)
-        mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-fedora.txt")
-        install "${packages[@]}"
-        ;;
-    *)
-        error "Unsupported distribution: $distro_id"
-        exit 1
-        ;;
-esac
-completed "Fonts successfully installed."
+if confirm "Install some fonts?";
+    case "$distro_id" in
+        arch|manjaro|archarm)
+            mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-arch.txt")
+            install "${packages[@]}"
+            ;;
+        fedora|rhel|fedora-asahi-remix)
+            mapfile -t packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/fonts-fedora.txt")
+            install "${packages[@]}"
+            ;;
+        *)
+            error "Unsupported distribution: $distro_id"
+            exit 1
+            ;;
+    esac
+    completed "Fonts successfully installed."
+fi
 
 # Finally we can install some packages
 info "Let me check which packages are available through your package manager"
@@ -322,22 +326,24 @@ for pkg in "${packages[@]}"; do
     fi
 done
 
-confirm "Install the basic packages?"
+if confirm "Install the basic packages?"; then
 install "${filtered[@]}"
 completed "Basic packages installed"
+fi
 
 # AUR packages on arch
 if [[ "$distro_id" == "arch" || "$distro_id" == "manjaro" || "$distro_id" == "archarm" ]]; then
     if [[ -f "$REPO/setup/yaypkglist.txt" ]]; then
-        confirm "Install yay and AUR packages?"
-        bootstrap_yay
+        if confirm "Install yay and AUR packages?"; then 
+            bootstrap_yay
 
-        mapfile -t aur_packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/yaypkglist.txt")
-        if [[ ${#aur_packages[@]} -gt 0 ]]; then
-            install_aur "${aur_packages[@]}" || true
-            completed "AUR packages installed"
-        else
-            info "yaypkglist.txt is empty, nothing to install"
+            mapfile -t aur_packages < <(grep -vE '^\s*#|^\s*$' "$REPO/setup/yaypkglist.txt")
+            if [[ ${#aur_packages[@]} -gt 0 ]]; then
+                install_aur "${aur_packages[@]}" || true
+                completed "AUR packages installed"
+            else
+                info "yaypkglist.txt is empty, nothing to install"
+            fi
         fi
     else
         warn "$REPO/setup/yaypkglist.txt not found, skipping AUR install"
@@ -345,67 +351,72 @@ if [[ "$distro_id" == "arch" || "$distro_id" == "manjaro" || "$distro_id" == "ar
 fi
 
 # Set up default GTK dark mode
-confirm "Set up default dark mode?"
-gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-completed "GTK dark mode is set to Adwaita-dark"
+if confirm "Set up default dark mode?"; then
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark' 
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    completed "GTK dark mode is set to Adwaita-dark"
+fi
 
 # Set up SDDM
-info "Let's set up the display manager (sddm)"
-info "Installing astronaut theme dependencies"
-case "$distro_id" in
-    arch|manjaro|archarm)
-        install qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
-        ;;
-    fedora|rhel|fedora-asahi-remix)
-        install qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia
-        ;;
-    *) error "Unsupported distribution: $distro_id"; exit 1 ;;
-esac
-completed "Installed Astronaut Dependencies"
+if confirm "Set up the display manager (sddm)?"; then
+    info "Installing astronaut theme dependencies"
+    case "$distro_id" in
+        arch|manjaro|archarm)
+            install qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
+            ;;
+        fedora|rhel|fedora-asahi-remix)
+            install qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia
+            ;;
+        *) error "Unsupported distribution: $distro_id"; exit 1 ;;
+    esac
+    completed "Installed Astronaut Dependencies"
 
-if [[ ! -d /usr/share/sddm/themes/sddm-astronaut-theme ]]; then
-    sudo git clone -b master --depth 1 \
-        https://github.com/keyitdev/sddm-astronaut-theme.git \
-        /usr/share/sddm/themes/sddm-astronaut-theme
+    if [[ ! -d /usr/share/sddm/themes/sddm-astronaut-theme ]]; then
+        sudo git clone -b master --depth 1 \
+            https://github.com/keyitdev/sddm-astronaut-theme.git \
+            /usr/share/sddm/themes/sddm-astronaut-theme
+    fi
+    sudo cp -r /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
+    sudo fc-cache -f
+    echo "[Theme]
+    Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
+    sudo mkdir -p /etc/sddm.conf.d
+    echo "[General]
+    InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
+    if [[ -f "$REPO/sddm_theme.conf" ]]; then
+        sudo cp "$REPO/sddm_theme.conf" \
+            "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
+    else
+        warn "$REPO/sddm_theme.conf not found, skipping custom theme config"
+    fi
+    sudo sed -i 's|^ConfigFile=.*|ConfigFile=Themes/sddm_theme.conf|' \
+        /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
+    completed "Successfully cloned the astronaut repo and copied fonts and config"
 fi
-sudo cp -r /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
-sudo fc-cache -f
-echo "[Theme]
-Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
-sudo mkdir -p /etc/sddm.conf.d
-echo "[General]
-InputMethod=qtvirtualkeyboard" | sudo tee /etc/sddm.conf.d/virtualkbd.conf
-if [[ -f "$REPO/sddm_theme.conf" ]]; then
-    sudo cp "$REPO/sddm_theme.conf" \
-        "/usr/share/sddm/themes/sddm-astronaut-theme/Themes/sddm_theme.conf"
-else
-    warn "$REPO/sddm_theme.conf not found, skipping custom theme config"
-fi
-sudo sed -i 's|^ConfigFile=.*|ConfigFile=Themes/sddm_theme.conf|' \
-    /usr/share/sddm/themes/sddm-astronaut-theme/metadata.desktop
-completed "Successfully cloned the astronaut repo and copied fonts and config"
 
 # Enable persistent ssh-agent as a user service
-confirm "Enable ssh-agent user service?"
-systemctl --user enable --now ssh-agent.service
-mkdir -p ~/.config/environment.d
-cat > ~/.config/environment.d/ssh-agent.conf << 'EOF'
+if confirm "Enable ssh-agent user service?"; then
+    systemctl --user enable --now ssh-agent.service
+    mkdir -p ~/.config/environment.d
+    cat > ~/.config/environment.d/ssh-agent.conf << 'EOF'
 SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/ssh-agent.socket
 EOF
-completed "ssh-agent enabled and SSH_AUTH_SOCK exported"
+    completed "ssh-agent enabled and SSH_AUTH_SOCK exported"
+fi
 
 # Enable the remaining services
-confirm "Enable remaining services?"
-sudo systemctl enable --now sddm.service
-sudo systemctl enable --now bluetooth.service
-sudo systemctl enable --now cups.service
-sudo systemctl enable --now iwd.service
-sudo systemctl enable --now keyd.service
-completed "Successfully enabled services"
+if confirm "Enable remaining services?"; then
+    sudo systemctl enable --now sddm.service
+    sudo systemctl enable --now bluetooth.service
+    sudo systemctl enable --now cups.service
+    sudo systemctl enable --now iwd.service
+    sudo systemctl enable --now keyd.service
+    completed "Successfully enabled services"
+fi
 
 # Setup git
-confirm "Setup git?"
-bash "$REPO/setup/setup-git.sh"
+if confirm "Setup git?"; then
+    bash "$REPO/setup/setup-git.sh"
+fi
 
-completed "Everything is done! Remember to do pass init <gpg-key> to enable the password manager"
+completed "Everything is done! Remember to do pass init <gpg-key> and then clone the password repo to enable the password manager"
