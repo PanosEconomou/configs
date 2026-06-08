@@ -7,7 +7,6 @@ config({
         gaps_in             = 3,
         gaps_out            = 6,
         border_size         = 0,
-
         col = {
             active_border   = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
             inactive_border = "rgba(59595955)",
@@ -39,8 +38,8 @@ config({
         -- Blur
         blur  = {
             enabled         = true,
-            size            = 15,
-            passes          = 3,
+            size            = 5,
+            passes          = 4,
             vibrancy        = 0.1696,
         },
 
@@ -50,7 +49,14 @@ config({
             range           = 5,
             render_power    = 3,
             color           = "rgba(3dd8ffaa)",
-        }
+        },
+
+        -- Shadow
+        shadow = {
+            enabled         = true,
+            range           = 10,
+            render_power    = 3,
+        },
     },
 })
 
