@@ -13,6 +13,7 @@ return {
         config          = function()
             vim.g.tex_flavor                         = "latex"
             vim.g.vimtex_view_method                 = "zathura"
+            vim.g.vimtex_view_zathura_use_synctex    = true
             vim.g.vimtex_quickfix_mode               = 0
             vim.g.vimtex_lint_chktex_ignore_warnings = "-n1 -n3 -n8 -n25 -n36"
             vim.g.vimtex_compiler_latexmk = {

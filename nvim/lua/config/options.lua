@@ -1,5 +1,6 @@
 -- EDITOR OPTIONS -----------------------------------------------
 local opt = vim.opt
+local env = vim.env
 
 -- Line Numbers
 opt.number          = true
@@ -7,7 +8,7 @@ opt.number          = true
 -- Indentation
 opt.shiftwidth      = 4
 opt.tabstop         = 4
-opt.expandtab       = true 
+opt.expandtab       = true
 
 -- Search
 opt.hlsearch        = true	-- Highlight search
@@ -53,3 +54,8 @@ opt.foldmethod      = "expr"    -- This requires Treesitter plugin
 opt.foldexpr        = "nvim_treesitter#foldexpr()"
 opt.foldlevel       = 99        -- Start with everything unfolded
 opt.foldenable      = true
+
+-- Terminal source bashrc 
+opt.shell           = "bash"
+opt.shellcmdflag    = "-c"
+env.BASH_ENV        = vim.fn.expand("~/.bashrc")
