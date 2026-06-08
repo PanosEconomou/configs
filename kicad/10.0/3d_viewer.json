@@ -4,7 +4,7 @@
     "custom_toolbars": false
   },
   "aui": {
-    "right_panel_width": -1,
+    "right_panel_width": 190,
     "show_layer_manager": true
   },
   "camera": {
@@ -23,7 +23,7 @@
     "on_selection": true,
     "zoom_to_fit": true
   },
-  "current_layer_preset": "legacy_preset_flag",
+  "current_layer_preset": "",
   "design_block_chooser": {
     "height": -1,
     "keep_annotations": false,
@@ -51,7 +51,96 @@
     "highlight_factor": 0.5,
     "select_factor": 0.75
   },
-  "layer_presets": [],
+  "layer_presets": [
+    {
+      "colors": [
+        {
+          "color": "rgb(194, 194, 194)",
+          "layer": ""
+        },
+        {
+          "color": "rgb(102, 102, 128)",
+          "layer": "background_bottom"
+        },
+        {
+          "color": "rgb(204, 204, 230)",
+          "layer": "background_top"
+        },
+        {
+          "color": "rgba(110, 115, 77, 0.902)",
+          "layer": "board"
+        },
+        {
+          "color": "rgb(191, 156, 59)",
+          "layer": "copper"
+        },
+        {
+          "color": "rgb(191, 156, 59)",
+          "layer": "copper_bottom"
+        },
+        {
+          "color": "rgb(240, 240, 240)",
+          "layer": "silkscreen_bottom"
+        },
+        {
+          "color": "rgb(240, 240, 240)",
+          "layer": "silkscreen_top"
+        },
+        {
+          "color": "rgba(20, 51, 36, 0.831)",
+          "layer": "soldermask_bottom"
+        },
+        {
+          "color": "rgba(20, 51, 36, 0.831)",
+          "layer": "soldermask_top"
+        },
+        {
+          "color": "rgb(128, 128, 128)",
+          "layer": "solderpaste"
+        },
+        {
+          "color": "rgb(217, 217, 217)",
+          "layer": "user_comments"
+        },
+        {
+          "color": "rgb(217, 217, 217)",
+          "layer": "user_drawings"
+        },
+        {
+          "color": "rgb(179, 26, 26)",
+          "layer": "user_eco1"
+        },
+        {
+          "color": "rgb(179, 26, 26)",
+          "layer": "user_eco2"
+        },
+        {
+          "color": "rgb(0, 0, 0)",
+          "layer": "plated_barrels"
+        }
+      ],
+      "layers": [
+        "fp_text",
+        "fp_values",
+        "fp_references",
+        "board",
+        "copper",
+        "copper_bottom",
+        "silkscreen_bottom",
+        "silkscreen_top",
+        "soldermask_bottom",
+        "soldermask_top",
+        "solderpaste",
+        "adhesive",
+        "th_models",
+        "smd_models",
+        "virtual_models",
+        "3d_navigator",
+        "plated_barrels"
+      ],
+      "name": "legacy colors"
+    }
+  ],
   "lib_tree": {
     "column_widths": null,
     "columns": [],
@@ -145,13 +234,13 @@
     "raytrace_spread_shadows": 0.05000000074505806,
     "show_adhesive": true,
     "show_board_body": true,
-    "show_comments": true,
+    "show_comments": false,
     "show_copper_bottom": true,
     "show_copper_top": true,
-    "show_drawings": true,
-    "show_eco1": true,
-    "show_eco2": true,
-    "show_footprints_dnp": false,
+    "show_drawings": false,
+    "show_eco1": false,
+    "show_eco2": false,
+    "show_footprints_dnp": true,
     "show_footprints_insert": true,
     "show_footprints_normal": true,
     "show_footprints_not_in_posfile": true,
@@ -229,14 +318,14 @@
     "show_import_issues": true,
     "units": 1
   },
-  "use_stackup_colors": true,
+  "use_stackup_colors": false,
   "window": {
     "aui_state": null,
     "cursor": {
       "always_show_cursor": true,
       "cross_hair_mode": 0
     },
-    "display": 0,
+    "display": 1,
     "grid": {
       "axes_enabled": false,
       "fast_grid_1": 15,
@@ -373,13 +462,13 @@
       "user_grid_x": "",
       "user_grid_y": ""
     },
-    "maximized": false,
+    "maximized": true,
     "mru_path": "",
-    "perspective": "",
+    "perspective": "layout2|name=TopMainToolbar;caption=;state=139632;dir=1;layer=6;row=0;pos=0;prop=100000;bestw=594;besth=26;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=InfoBar;caption=;state=131454;dir=1;layer=1;row=0;pos=0;prop=100000;bestw=20;besth=30;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=LayersManager;caption=Appearance;state=1532;dir=2;layer=3;row=0;pos=0;prop=100000;bestw=190;besth=-1;minw=180;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|name=DrawFrame;caption=;state=1020;dir=5;layer=0;row=0;pos=0;prop=100000;bestw=20;besth=20;minw=-1;minh=-1;maxw=-1;maxh=-1;floatx=-1;floaty=-1;floatw=-1;floath=-1|dock_size(1,6,0)=26|dock_size(2,3,0)=190|dock_size(5,0,0)=22|",
     "pos_x": 0,
     "pos_y": 0,
-    "size_x": 0,
-    "size_y": 0,
+    "size_x": 954,
+    "size_y": 1068,
     "zoom_factors": [
       0.13,
       0.22,
