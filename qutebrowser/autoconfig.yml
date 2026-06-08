@@ -24,6 +24,9 @@ settings:
     - filesystem
   content.cookies.store:
     global: true
+  content.desktop_capture:
+    https://app.zoom.us: true
+    https://claude.ai: true
   content.geolocation:
     https://www.speedtest.net: false
   content.headers.do_not_track:
@@ -40,12 +43,15 @@ settings:
   content.media.audio_capture:
     https://app.zoom.us: true
     https://chatgpt.com: true
+    https://claude.ai: true
   content.media.audio_video_capture:
     https://app.zoom.us: true
     https://diagnostics.simplepractice.com: true
     https://video.simplepractice.com: true
   content.media.video_capture:
     https://app.zoom.us: true
+  content.mouse_lock:
+    https://www.figma.com: true
   content.notifications.enabled:
     https://app.zoom.us: true
     https://calendar.google.com: false

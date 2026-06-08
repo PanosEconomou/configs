@@ -14,3 +14,5 @@ set guioptions none
 set highlight-active-color "rgba(168, 234, 237,0.3)"
 set highlight-color "rgba(168, 234, 237,0.3)"
 
+set synctex true
+set synctex-editor-command "nvim --headless -c \"VimtexInverseSearch %{line}:%{column} '%{input}'\""
