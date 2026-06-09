@@ -53,7 +53,7 @@ config({
 
         -- Shadow
         shadow = {
-            enabled         = true,
+            enabled         = false,
             range           = 10,
             render_power    = 3,
         },
