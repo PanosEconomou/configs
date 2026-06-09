@@ -15,6 +15,16 @@ settings:
         <Space>: 'cmd-set-text :'
         P: :spawn --userscript qute-pass --password-only
         p: :spawn --userscript qute-pass
+  colors.downloads.system.fg:
+    global: rgb
+  colors.statusbar.caret.bg:
+    global: '#282a36'
+  colors.statusbar.insert.fg:
+    global: '#ffffff'
+  colors.statusbar.normal.bg:
+    global: '#282a36'
+  colors.webpage.bg:
+    global: white
   completion.open_categories:
     global:
     - quickmarks
@@ -22,6 +32,8 @@ settings:
     - bookmarks
     - history
     - filesystem
+  content.blocking.method:
+    global: both
   content.cookies.store:
     global: true
   content.desktop_capture:
@@ -65,21 +77,60 @@ settings:
     global: bottom
   editor.command:
     global:
-    - vim
+    - nvim
     - -f
     - '{file}'
     - -c
     - normal {line}G{column0}l
+  hints.chars:
+    global: asdfghjkl
+  hints.leave_on_load:
+    global: false
+  hints.mode:
+    global: letter
+  hints.scatter:
+    global: true
+  input.spatial_navigation:
+    global: false
+  prompt.radius:
+    global: 8
   qt.highdpi:
     global: false
   qt.workarounds.disable_hangouts_extension:
     global: true
+  scrolling.smooth:
+    global: true
+  statusbar.padding:
+    global:
+      bottom: 6
+      left: 8
+      right: 8
+      top: 6
+  statusbar.position:
+    global: bottom
   statusbar.show:
     global: in-mode
+  statusbar.widgets:
+    global:
+    - keypress
+    - search_match
+    - url
+  tabs.position:
+    global: top
   tabs.show:
     global: switching
+  tabs.title.alignment:
+    global: center
+  tabs.title.elide:
+    global: none
+  tabs.title.format:
+    global: '{audio} {current_title}'
+  tabs.tooltips:
+    global: true
+  tabs.width:
+    global: 15%
   url.default_page:
-    global: pano-homepage.netlify.app
+    global: home.panos.wiki
   url.incdec_segments:
     global:
     - path
@@ -90,4 +141,6 @@ settings:
       aw: https://wiki.archlinux.org/?search={}
       you: https://www.youtube.com/results?search_query={}
   url.start_pages:
-    global: pano-homepage.netlify.app
+    global: home.panos.wiki
+  window.transparent:
+    global: true
