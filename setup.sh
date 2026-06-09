@@ -160,6 +160,7 @@ symlinks=(
     "$REPO/Pictures $HOME/Pictures"
     "$REPO/bash_aliases $HOME/.bash_aliases"
     "$REPO/latexmkrc $HOME/.latexmkrc"
+    "$REPO/hypr/scripts/paper.sh $HOME/.local/bin/wallpaper"
 )
 
 ##################################################################
@@ -252,7 +253,29 @@ else
     completed "Padots repo is cloned."
 fi
 
-# Let's first some files
+
+# Now append some lines bashrc
+if confirm "Add aliases and starship to bashrc?"; then
+    if ! grep -qF "padots: starship+aliases" ~/.bashrc 2>/dev/null; then
+        cat << 'EOF' >> ~/.bashrc
+
+# padots: starship+aliases
+eval "$(starship init bash)"
+source ~/.bash_aliases
+
+# Configure nnn file manager
+[ -f "$HOME/.config/nnn/nnn.sh" ] && . "$HOME/.config/nnn/nnn.sh"
+
+# Load the local bin
+PATH=$PATH:~/.local/bin
+EOF
+    fi
+    mkdir -p "$HOME/.local/bin"
+    completed "~/.bashrc modified successfully."
+fi
+
+
+# Setup some symlinks 
 info "Let's ${BOLD}link some configs${NO_COLOR} to the right places."
 info "This is a list of them:"
 
@@ -279,21 +302,6 @@ if confirm "Create Symlinks?"; then
 
     completed "Symlinks created"
 fi 
-
-
-
-# Now append some lines bashrc
-if confirm "Add aliases and starship to bashrc?"; then
-    if ! grep -qF "padots: starship+aliases" ~/.bashrc 2>/dev/null; then
-        cat << 'EOF' >> ~/.bashrc
-
-# padots: starship+aliases
-eval "$(starship init bash)"
-source ~/.bash_aliases
-EOF
-    fi
-    completed "~/.bashrc modified successfully."
-fi
 
 # Now we need to install the relevant hyprland utilities
 if confirm "Install some fonts?";
