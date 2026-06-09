@@ -78,6 +78,8 @@ settings:
     global: in-mode
   tabs.show:
     global: switching
+  url.default_page:
+    global: pano-homepage.netlify.app
   url.incdec_segments:
     global:
     - path
@@ -87,3 +89,5 @@ settings:
       DEFAULT: https://duckduckgo.com/?q={}
       aw: https://wiki.archlinux.org/?search={}
       you: https://www.youtube.com/results?search_query={}
+  url.start_pages:
+    global: pano-homepage.netlify.app

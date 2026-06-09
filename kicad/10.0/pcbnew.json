@@ -559,7 +559,7 @@
       "always_show_cursor": true,
       "cross_hair_mode": 0
     },
-    "display": 1,
+    "display": 0,
     "grid": {
       "axes_enabled": false,
       "fast_grid_1": 15,
