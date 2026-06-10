@@ -51,6 +51,7 @@ settings:
     https://claude.ai: access-paste
     https://duckduckgo.com: access-paste
     https://github.com: access-paste
+    https://google.github.io: access-paste
     https://wiki.hypr.land: access-paste
   content.media.audio_capture:
     https://app.zoom.us: true
@@ -90,6 +91,8 @@ settings:
     global: letter
   hints.scatter:
     global: true
+  input.insert_mode.auto_load:
+    global: false
   input.spatial_navigation:
     global: false
   prompt.radius:

@@ -35,6 +35,12 @@ rule({
     opacity         = 0.9,
 })
 
+-- Make marktext transparent and titleless 
+rule({
+    match           = { class = "marktext" },
+    opacity         = 0.9,
+})
+
 -- Don't allow things to be maximized
 rule({
     name            = "suppress-maximize-events",

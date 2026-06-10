@@ -31,7 +31,6 @@ QtProject.conf
 yelp/
 nchat/*
 slack-term/
-aerc/
 zoom*
 Unknown*
 neofetch/
