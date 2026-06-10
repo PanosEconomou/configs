@@ -4,8 +4,8 @@ local rule      = hl.layer_rule
 
 config({
     general = {
-        gaps_in             = 3,
-        gaps_out            = 6,
+        gaps_in             = 4,
+        gaps_out            = 8,
         border_size         = 0,
         col = {
             active_border   = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
@@ -53,9 +53,11 @@ config({
 
         -- Shadow
         shadow = {
-            enabled         = false,
+            enabled         = true,
             range           = 10,
-            render_power    = 3,
+            render_power    = 6,
+            offset          = {0, 0},
+            scale           = 1.0,
         },
     },
 

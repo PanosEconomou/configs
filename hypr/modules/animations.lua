@@ -5,8 +5,8 @@ local animation = hl.animation
 
 config({
     animations = {
-        enabled     = true,
-    }
+        enabled = true,
+    },
 })
 
 -- Snappy ease-out for instant feel
